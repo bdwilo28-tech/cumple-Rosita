@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 ¡Feliz Cumpleaños! 💝</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Comic+Neue:wght@700&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #fccb90);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      margin: 10px;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff80ab, 0 0 30px #ff4081;
+      animation: glow 2s infinite alternate;
+      transform: scale(0);
+      animation: scaleIn 1s forwards 1s;
+    }
+
+    p {
+      font-size: 1.3em;
+      max-width: 90%;
+      opacity: 0;
+      animation: fadeIn 1s forwards 1.5s;
+    }
+
+    img {
+      width: 200px;
+      margin: 20px 0;
+      animation: bounce 2s infinite;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+      opacity: 0;
+      animation: fadeIn 1s forwards 2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ff80ab;
+    }
+
+    /* Animaciones */
+    @keyframes scaleIn {
+      to { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff80ab; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4081; }
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Confeti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ff4081;
+      animation: fall 4s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    /* Modal de mensaje especial */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 85%;
+      text-align: center;
+      color: #ff4081;
+      box-shadow: 0 0 20px rgba(255, 64, 129, 0.6);
+      transform: scale(0);
+      animation: scaleIn 0.5s forwards;
+    }
+
+    .modal h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      font-size: 1.1em;
+      opacity: 1;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>¡Feliz Cumpleaños, Rosita! 💖</h1>
+  <p>Que este día esté lleno de magia, alegría y momentos inolvidables. 🌸🎉</p>
+  
+  <!-- Imagen animada -->
+  <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3RrOG94OG45ODg5dmZqc3JvYjFqZm1lOXY3N2pudWZmeWF0Y2ZxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/T8ZaX6VoICGFxnlNsh/giphy.gif" alt="Pastel animado">
+
+  <!-- Botón de mensaje especial -->
+  <button onclick="showMessage()">💌R</button>
+
+  <!-- Música (oculta, por si quieres que suene sin botón) -->
+  <audio id="birthdayAudio" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa3ff7f6a.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Modal de mensaje especial -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <h2>Rosita 💝</h2>
+      <p>¡Eres una persona increíble y mereces todo lo mejor!
+         🌸 Rosita, siempre mantén esa sonrisa que alegra todo. ¡Te quiero! 💗🎂💐</p>
+      <button class="close-btn" onclick="hideMessage()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    // Generar confeti
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      confetti.style.width = (Math.random() * 8 + 5) + "px";
+      confetti.style.height = confetti.style.width;
+      document.body.appendChild(confetti);
+    }
+
+    // Modal de mensaje
+    function showMessage() {
+      document.getElementById("messageModal").style.display = "flex";
+    }
+
+    function hideMessage() {
+      document.getElementById("messageModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
